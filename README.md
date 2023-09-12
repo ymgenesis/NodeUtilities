@@ -25,6 +25,9 @@ To install `rembg`, first activate InvokeAI's virtual environment. From your
 InvokeAI root folder execute: `source .venv/bin/activate`. Then execute: 
 `pip install rembg`.
 
+Remove Background will pass through the unaltered original image if `rembg`
+isn't installed in InvokeAI's virtual environment.
+
 Note: rembg installs its onnx models to a hidden `u2net` directory in your user
 home folder.
 
