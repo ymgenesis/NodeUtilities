@@ -23,7 +23,7 @@ class CenterPadCropInvocation(BaseInvocation):
 
     def invoke(self, context: InvocationContext) -> ImageOutput:
         image = context.services.images.get_pil_image(self.image.image_name)
-        
+
         # Calculate and create new image dimensions
         new_width = image.width + self.right + self.left
         new_height = image.height + self.top + self.bottom
@@ -39,7 +39,7 @@ class CenterPadCropInvocation(BaseInvocation):
             node_id=self.id,
             session_id=context.graph_execution_state_id,
             is_intermediate=self.is_intermediate,
-            workflow=self.workflow,            
+            workflow=self.workflow,
         )
 
         return ImageOutput(
