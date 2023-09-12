@@ -34,6 +34,18 @@ home folder.
 ![rembg](https://github.com/ymgenesis/FaceTools/assets/25252829/9b47938a-7689-4d8a-a027-4f0f083fcca1)
 ![rembgresult](https://github.com/ymgenesis/FaceTools/assets/25252829/7b1a4e09-e2d0-41df-bf04-3f6797628aca)
 
+## Remove Transparencies
+
+Outputs an image with pixels removed. Uses a transparency threshold to identify
+pixels for removal. Optionally crop to remaining pixels with a transparent
+border (px). Crop H&W are multiples of 8, and border is >0 & a multiple of 8.
+
+![rmtransp](https://github.com/ymgenesis/NodeUtilities/assets/25252829/0d25cca3-878a-41d9-bc84-bcf09ed408ba)
+<br>before:<br>
+![before](https://github.com/ymgenesis/NodeUtilities/assets/25252829/a3269124-3d6f-463f-a5e9-0f1528dbd1d9)
+<br>after:<br>
+![result](https://github.com/ymgenesis/NodeUtilities/assets/25252829/788f4bbc-b317-4e9f-8e5c-473971347169)
+
 ### Adaptive EQ
 
 Adaptive Histogram Equalization using skimage.
@@ -45,7 +57,7 @@ Adaptive Histogram Equalization using skimage.
 
 Pad or crop an image's sides from the center by specified pixels. Positive 
 values are outside of the image. Checkerboard added to background
-of result for demonstration.
+of result for demonstration. Also takes negative numbers for inward cropping.
 
 ![cpc](https://github.com/ymgenesis/FaceTools/assets/25252829/f8269881-bd91-437e-b2ee-daeb4192d7e9)
 ![cpcresultcheckerboard](https://github.com/ymgenesis/NodeUtilities/assets/25252829/9d60881c-cd25-4f53-9368-d471daef637c)
