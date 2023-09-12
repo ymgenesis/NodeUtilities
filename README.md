@@ -37,8 +37,9 @@ home folder.
 ## Remove Transparencies
 
 Outputs an image with pixels removed. Uses a transparency threshold to identify
-pixels for removal. Optionally crop to remaining pixels with a transparent
-border (px). Crop H&W are multiples of 8, and border is >0 & a multiple of 8.
+pixels for removal. Optionally crop to remaining pixels (subject) with a
+transparent border (px). Cropped H&W are multiples of 8, and border is >=0 & a
+multiple of 8.
 
 ![rmtransp](https://github.com/ymgenesis/NodeUtilities/assets/25252829/0d25cca3-878a-41d9-bc84-bcf09ed408ba)
 <br>before:<br>
