@@ -16,7 +16,7 @@ class RemoveTransparenciesInvocation(BaseInvocation):
     """Outputs an image with transparent pixels removed. Uses a transparency threshold to identify pixels for removal. Optionally crop to remaining pixels with a transparent border (px)."""
 
     image:                      ImageField  = InputField(description="Image to remove transparencies from")
-    transparency_threshold:     float = InputField(default="0.5", description="Transparency threshold pixels meet to be removed. 0 = transparent, 1 = opaque.")
+    transparency_threshold:     float = InputField(default=0.5, description="Transparency threshold pixels meet to be removed. 0 = transparent, 1 = opaque.")
     crop:                       bool = InputField(default=False, description="Whether to crop to remaining pixels. H&W both a multiple of 8.")
     border:                     int = InputField(default=0, description="If cropping, the transparent border (px) to draw around the cropped area. >0 & multiple of 8.")
 
@@ -55,7 +55,7 @@ class RemoveTransparenciesInvocation(BaseInvocation):
 
         else:
             # no border if cropping isn't true
-            border = 0        
+            border = 0
             # Create a new image object for the output image
             image_out = Image.new("RGBA", (width, height), (0, 0, 0, 0))
             # Paste the cropped image onto the new image
