@@ -44,10 +44,11 @@ Adaptive Histogram Equalization using skimage.
 ### Center Pad Crop
 
 Pad or crop an image's sides from the center by specified pixels. Positive 
-values are outside of the image.
+values are outside of the image. Checkerboard added to background
+of result for demonstration.
 
 ![cpc](https://github.com/ymgenesis/FaceTools/assets/25252829/f8269881-bd91-437e-b2ee-daeb4192d7e9)
-![cpcresult](https://github.com/ymgenesis/FaceTools/assets/25252829/ab050ae1-6c8f-43ff-b0d4-48987fe78801)
+![cpcresultcheckerboard](https://github.com/ymgenesis/NodeUtilities/assets/25252829/9d60881c-cd25-4f53-9368-d471daef637c)
 <hr>
 
 #### Source Image
