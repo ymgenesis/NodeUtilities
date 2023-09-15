@@ -36,12 +36,16 @@ home folder.
 
 ## Remove Transparencies
 
-Outputs an image with pixels removed. Uses a transparency threshold to identify
-pixels for removal. Optionally crop to remaining pixels (subject) with a
-transparent border (px). Cropped H&W are multiples of 8, and border is >=0 & a
-multiple of 8.
+Outputs an image with some pixels made transparent. Uses a transparency
+threshold to identify pixels to be made transparent. Optionally crop to
+remaining pixels (subject) with a transparent border (px). Mask is form-fit to
+the subject in black by default. Rectangle mask draws a black bounding box
+around the subject to give painting more room to work with (when altering the
+subject). Invert the mask to alter the background. Rectangle mask is off when
+cropping to subject's bounding box (whole mask would be black). Cropped H&W are
+multiples of 8, and border is >=0 & a multiple of 8.
 
-![rmtransp](https://github.com/ymgenesis/NodeUtilities/assets/25252829/0d25cca3-878a-41d9-bc84-bcf09ed408ba)
+![removetransparencies](https://github.com/ymgenesis/NodeUtilities/assets/25252829/e3a740ba-7570-4679-80ea-8e585718a544)
 <br>before:<br>
 ![before](https://github.com/ymgenesis/NodeUtilities/assets/25252829/a3269124-3d6f-463f-a5e9-0f1528dbd1d9)
 <br>after:<br>
