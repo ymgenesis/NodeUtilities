@@ -1,25 +1,36 @@
-## Center Pad Crop 1.7
+## Center Pad Crop 1.8
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
 from PIL import Image
-from invokeai.app.models.image import (ImageCategory, ResourceOrigin)
+
+from invokeai.app.invocations.baseinvocation import BaseInvocation, InputField, InvocationContext, invocation
 from invokeai.app.invocations.primitives import ImageField, ImageOutput
-from invokeai.app.invocations.baseinvocation import (
-    BaseInvocation,
-    InvocationContext,
-    InputField,
-    invocation)
+from invokeai.app.models.image import ImageCategory, ResourceOrigin
 
 
-@invocation("img_pad_crop", title="Center Pad Crop", tags=["image", "center", "pad", "crop"], category="image", version="1.0.0")
+@invocation(
+    "img_pad_crop", title="Center Pad Crop", tags=["image", "center", "pad", "crop"], category="image", version="1.0.0"
+)
 class CenterPadCropInvocation(BaseInvocation):
     """Pad or crop an image's sides from the center by specified pixels. Positive values are outside of the image."""
 
-    image:  ImageField = InputField(description="The image to crop")
-    left:   int = InputField(default=0, description="Number of pixels to pad/crop from the left (negative values crop inwards, positive values pad outwards)")
-    right:  int = InputField(default=0, description="Number of pixels to pad/crop from the right (negative values crop inwards, positive values pad outwards)")
-    top:    int = InputField(default=0, description="Number of pixels to pad/crop from the top (negative values crop inwards, positive values pad outwards)")
-    bottom: int = InputField(default=0, description="Number of pixels to pad/crop from the bottom (negative values crop inwards, positive values pad outwards)")
+    image: ImageField = InputField(description="The image to crop")
+    left: int = InputField(
+        default=0,
+        description="Number of pixels to pad/crop from the left (negative values crop inwards, positive values pad outwards)",
+    )
+    right: int = InputField(
+        default=0,
+        description="Number of pixels to pad/crop from the right (negative values crop inwards, positive values pad outwards)",
+    )
+    top: int = InputField(
+        default=0,
+        description="Number of pixels to pad/crop from the top (negative values crop inwards, positive values pad outwards)",
+    )
+    bottom: int = InputField(
+        default=0,
+        description="Number of pixels to pad/crop from the bottom (negative values crop inwards, positive values pad outwards)",
+    )
 
     def invoke(self, context: InvocationContext) -> ImageOutput:
         image = context.services.images.get_pil_image(self.image.image_name)

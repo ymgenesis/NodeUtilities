@@ -1,30 +1,27 @@
-## Adaptive EQ 1.7
+## Adaptive EQ 1.8
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
 import numpy as np
-from skimage import exposure
 from PIL import Image
-from invokeai.app.models.image import (ImageCategory, ResourceOrigin)
+from skimage import exposure
+
+from invokeai.app.invocations.baseinvocation import BaseInvocation, InputField, InvocationContext, invocation
 from invokeai.app.invocations.primitives import ImageField, ImageOutput
-from invokeai.app.invocations.baseinvocation import (
-    BaseInvocation,
-    InvocationContext,
-    InputField,
-    invocation)
+from invokeai.app.models.image import ImageCategory, ResourceOrigin
 
 
 @invocation("adaptive_eq", title="Adaptive EQ", tags=["image", "adaptive", "eq"], category="image", version="1.0.0")
 class AdaptiveEQInvocation(BaseInvocation):
     """Adaptive Histogram Equalization using skimage."""
 
-    image:       ImageField  = InputField(description="Input image")
-    strength:    float = InputField(default=1.5, description="Adaptive EQ strength")
+    image: ImageField = InputField(description="Input image")
+    strength: float = InputField(default=1.5, description="Adaptive EQ strength")
 
     def invoke(self, context: InvocationContext) -> ImageOutput:
         image = context.services.images.get_pil_image(self.image.image_name)
 
         if self.strength > 0:
-            strength = (self.strength / 222)
+            strength = self.strength / 222
             nimage = np.array(image)
             img_adapteq = exposure.equalize_adapthist(nimage, clip_limit=strength)
             image = Image.fromarray((img_adapteq * 255).astype(np.uint8))
