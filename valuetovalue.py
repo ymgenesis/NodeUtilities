@@ -1,7 +1,7 @@
 ## Value To Value 1.5
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
-from typing import Literal, Optional
+from typing import Literal
 
 import numpy as np
 
@@ -20,9 +20,9 @@ from invokeai.app.invocations.baseinvocation import (
 class StrFltIntOutput(BaseInvocationOutput):
     """Output a string, float, and integer"""
 
-    string_output: Optional[str] = OutputField(default="", description="The output string", title="String")
-    float_output: Optional[float] = OutputField(default=0, description="The output float", title="Float")
-    integer_output: Optional[int] = OutputField(default=0, description="The output integer", title="Integer")
+    string_output: str = OutputField(default="", description="The output string", title="String")
+    float_output: float = OutputField(default=0, description="The output float", title="Float")
+    integer_output: int = OutputField(default=0, description="The output integer", title="Integer")
 
 
 @invocation(
