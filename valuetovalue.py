@@ -1,7 +1,7 @@
-## Value To Value 1.0
+## Value To Value 1.5
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
-from typing import Literal
+from typing import Literal, Optional
 
 import numpy as np
 
@@ -20,15 +20,15 @@ from invokeai.app.invocations.baseinvocation import (
 class StrFltIntOutput(BaseInvocationOutput):
     """Output a string, float, and integer"""
 
-    string_output: str = OutputField(description="The output string", title="String")
-    float_output: float = OutputField(description="The output float", title="Float")
-    integer_output: int = OutputField(description="The output integer", title="Integer")
+    string_output: Optional[str] = OutputField(default="", description="The output string", title="String")
+    float_output: Optional[float] = OutputField(default=0, description="The output float", title="Float")
+    integer_output: Optional[int] = OutputField(default=0, description="The output integer", title="Integer")
 
 
 @invocation(
     "value_to_value",
     title="Value To Value",
-    tags=["math", "round", "integer", "float", "string", "convert"],
+    tags=["math", "round", "integer", "float", "string", "convert", "v2v"],
     category="math",
     version="1.0.0",
 )
@@ -57,13 +57,15 @@ class ValueToValueInvocation(BaseInvocation):
                     int_out = int(float(self.value) / self.round_multiple) * self.round_multiple
                 string_out = str(self.value)
                 float_out = float(self.value)
+                return StrFltIntOutput(
+                    string_output=string_out,
+                    float_output=float_out,
+                    integer_output=int_out,
+                )
+            else:
+                raise ValueError
         except ValueError:
             string_out = str(self.value)
-            float_out = 0
-            int_out = 0
-
-        return StrFltIntOutput(
-            string_output=string_out,
-            float_output=float_out,
-            integer_output=int_out,
-        )
+            return StrFltIntOutput(
+                string_output=string_out,
+            )
