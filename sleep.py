@@ -38,7 +38,7 @@ class SleepInvocation(BaseInvocation):
                 pass
 
         context.services.logger.warning(f"Sleep --> Sleeping for {self.interval} second(s)")
-        for i in tqdm(range(self.interval), desc="Sleeping"):
+        for _ in tqdm(range(self.interval), desc="Sleeping"):
             time.sleep(1)
         context.services.logger.info(f"Sleep --> Slept for {self.interval} second(s)")
 
