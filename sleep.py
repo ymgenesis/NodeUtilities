@@ -1,4 +1,4 @@
-## Sleep 1.1
+## Sleep 1.2
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
 import time
@@ -12,7 +12,7 @@ from invokeai.app.models.image import ImageCategory, ResourceOrigin
 from invokeai.backend.util.devices import choose_torch_device
 
 
-@invocation("sleep_node", title="Sleep", tags=["sleep", "pause"], category="utility", version="1.0.0", use_cache=False)
+@invocation("sleep_node", title="Sleep", tags=["sleep", "pause"], category="utility", version="1.0.2", use_cache=False)
 class SleepInvocation(BaseInvocation):
     """Sleeps for a given interval in seconds. Optionally clears VRAM cache."""
 
@@ -24,11 +24,10 @@ class SleepInvocation(BaseInvocation):
         image = context.services.images.get_pil_image(self.image.image_name)
 
         if self.clear_vram_cache:
-            device = str(choose_torch_device())
-            if device == "cuda":
+            if choose_torch_device() == torch.device("cuda"):
                 torch.cuda.empty_cache()
                 context.services.logger.info("Sleep --> Cleared cuda VRAM cache")
-            elif device == "mps":
+            if choose_torch_device() == torch.device("mps"):
                 from torch import mps
 
                 mps.empty_cache()
