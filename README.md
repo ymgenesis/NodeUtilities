@@ -73,6 +73,10 @@ Outputs a given value as a string, float, or integer. Rounds in the case of
 float to integer. Value input types include string, float, and integer.
 
 ![v2v](https://github.com/ymgenesis/NodeUtilities/assets/25252829/e7d1e31b-ace8-4f5e-998c-995a20fd7252)
+
+### Sleep
+
+Sleeps for a given interval in seconds. Optionally clears VRAM cache.
 <hr>
 
 #### Source Image
