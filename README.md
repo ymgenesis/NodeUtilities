@@ -79,6 +79,16 @@ float to integer. Value input types include string, float, and integer.
 Sleeps for a given interval in seconds. Optionally clears VRAM cache.
 
 ![sleep](https://github.com/ymgenesis/NodeUtilities/assets/25252829/b48776d3-6171-42c1-98ae-0f0fa6d8b1d0)
+
+### Insert Channel Image
+
+Overwrite a channel in the input image with a channel image (channel image is 
+any image).
+
+### Face Swapper
+
+Blend/place a face into/onto an existing face. Downloads non-commercial 
+research models to `invokeai/models/any/faceswapper`.
 <hr>
 
 #### Source Image
