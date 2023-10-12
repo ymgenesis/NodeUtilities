@@ -1,4 +1,4 @@
-## Adaptive EQ 1.8
+## Adaptive EQ 2.0
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
 import numpy as np
@@ -7,7 +7,7 @@ from skimage import exposure
 
 from invokeai.app.invocations.baseinvocation import BaseInvocation, InputField, InvocationContext, invocation
 from invokeai.app.invocations.primitives import ImageField, ImageOutput
-from invokeai.app.models.image import ImageCategory, ResourceOrigin
+from invokeai.app.services.image_records.image_records_common import ImageCategory, ResourceOrigin
 
 
 @invocation("adaptive_eq", title="Adaptive EQ", tags=["image", "adaptive", "eq"], category="image", version="1.0.0")

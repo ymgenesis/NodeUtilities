@@ -1,4 +1,4 @@
-## Remove Transparencies 2.1
+## Remove Transparencies 3.5
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
 from PIL import Image, ImageOps
@@ -13,7 +13,7 @@ from invokeai.app.invocations.baseinvocation import (
     invocation_output,
 )
 from invokeai.app.invocations.primitives import ImageField
-from invokeai.app.models.image import ImageCategory, ResourceOrigin
+from invokeai.app.services.image_records.image_records_common import ImageCategory, ResourceOrigin
 
 
 @invocation_output("remove_transparencies_output")

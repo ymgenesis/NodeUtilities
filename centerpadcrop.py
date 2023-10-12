@@ -1,11 +1,11 @@
-## Center Pad Crop 1.8
+## Center Pad Crop 2.0
 ## A node for InvokeAI, written by YMGenesis/Matthew Janik
 
 from PIL import Image
 
 from invokeai.app.invocations.baseinvocation import BaseInvocation, InputField, InvocationContext, invocation
 from invokeai.app.invocations.primitives import ImageField, ImageOutput
-from invokeai.app.models.image import ImageCategory, ResourceOrigin
+from invokeai.app.services.image_records.image_records_common import ImageCategory, ResourceOrigin
 
 
 @invocation(

@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 from invokeai.app.invocations.baseinvocation import BaseInvocation, InputField, InvocationContext, invocation
 from invokeai.app.invocations.primitives import ImageField, ImageOutput
-from invokeai.app.models.image import ImageCategory, ResourceOrigin
+from invokeai.app.services.image_records.image_records_common import ImageCategory, ResourceOrigin
 
 
 @invocation("face_swapper", title="Face Swapper", tags=["image", "face", "swap"], category="image", version="1.0.0")

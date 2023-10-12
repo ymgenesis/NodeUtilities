@@ -89,6 +89,16 @@ any image).
 
 Blend/place a face into/onto an existing face. Downloads non-commercial 
 research models to `invokeai/models/any/faceswapper`.
+
+### CodeFormer
+
+Face restoration using CodeFormer. Downloads non-commercial
+research models to `invokeai/models/any/face_restoration/`.
+
+### GFPGAN
+
+Face restoration using GFPGAN. Downloads models models to
+`invokeai/models/any/face_restoration/`.
 <hr>
 
 #### Source Image
