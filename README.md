@@ -88,7 +88,11 @@ any image).
 ### Face Swapper
 
 Blend/place a face into/onto an existing face. Downloads non-commercial 
-research models to `invokeai/models/any/faceswapper`.
+research models to `invokeai/models/any/faceswapper`. NOTE: requires 
+`insightface` library. Activate invokeai's venv. From the invokeai folder:
+`source .venv/bin/activate`
+Next, do:
+`pip install insightface`
 
 ### CodeFormer
 
