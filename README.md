@@ -97,7 +97,7 @@ research models to `invokeai/models/any/face_restoration/`.
 
 ### GFPGAN
 
-Face restoration using GFPGAN. Downloads models models to
+Face restoration using GFPGAN. Downloads models to
 `invokeai/models/any/face_restoration/`. NOTE: requires provided `utils.py` to 
 be placed at:
 `invokeai/.venv/lib/python3.10/site-packages/gfpgan/utils.py` (mac)
