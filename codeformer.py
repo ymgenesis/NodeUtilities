@@ -2,6 +2,8 @@ import math
 from typing import Optional
 
 import cv2
+import os
+from pathlib import Path
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -11,6 +13,8 @@ from facexlib.utils.face_restoration_helper import FaceRestoreHelper
 from PIL import Image
 from torch import Tensor, nn
 from torchvision.transforms.functional import normalize
+import requests
+from tqdm import tqdm
 
 from invokeai.app.invocations.baseinvocation import BaseInvocation, InputField, InvocationContext, invocation
 from invokeai.app.invocations.primitives import ImageField, ImageOutput
@@ -713,9 +717,24 @@ class CodeFormerInvocation(BaseInvocation):
     strength: float = InputField(default=0.5, description="Restoration strength")
     fidelity: float = InputField(default=0.75, description="Restoration fidelity")
 
+    def download_model(self, url, file_name):
+        r = requests.get(url, stream=True)
+        total_size = int(r.headers.get("content-length", 0))
+        with open(file_name, "wb") as f:
+            with tqdm(
+                r.iter_content(chunk_size=1024), total=total_size, unit="B", unit_scale=True, unit_divisor=1024
+            ) as pbar:
+                for chunk in r.iter_content(chunk_size=1024):
+                    if chunk:
+                        f.write(chunk)
+                        pbar.update(len(chunk))
+
     def invoke(self, context: InvocationContext) -> ImageOutput:
         image = context.services.images.get_pil_image(self.image.image_name)
-        models_path = context.services.configuration.models_path
+        models_dir = context.services.configuration.models_path
+        model_path = f"{models_dir}/any/face_restoration/codeformer/codeformer.pth"
+        model_dirpath = os.path.dirname(model_path)
+        model_filepath = Path(model_path)
         device = choose_torch_device()
         print(device)
         cf_class = CodeFormer
@@ -724,8 +743,22 @@ class CodeFormerInvocation(BaseInvocation):
             dim_embd=512, codebook_size=1024, n_head=8, n_layers=9, connect_list=["32", "64", "128", "256"]
         ).to(device)
 
+        # Check if model directory exists, and if not, create it
+        if not os.path.exists(model_dirpath):
+            context.services.logger.warning(f"{model_dirpath} does not exist, creating")
+            os.makedirs(model_dirpath)
+
+        model_url = (
+            "https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/codeformer.pth"
+        )
+
+        if not model_filepath.is_file():
+            context.services.logger.warning("CodeFormer Model Missing. Downloading. Please wait..")
+            context.services.logger.warning(f"Downloading to {model_filepath}...")
+            self.download_model(model_url, model_filepath)
+
         # Load the Codeformer model for face restoration
-        codeformer_model = torch.load(f"{models_path}/core/face_restoration/codeformer/codeformer.pth")["params_ema"]
+        codeformer_model = torch.load(f"{models_dir}/any/face_restoration/codeformer/codeformer.pth")["params_ema"]
         cf.load_state_dict(codeformer_model)
         cf.eval()
 
@@ -743,7 +776,12 @@ class CodeFormerInvocation(BaseInvocation):
         # Codeformer expects BGR image data
         bgraImage = cv2.cvtColor(np.array(image), cv2.COLOR_RGBA2BGRA)
 
-        face_helper = FaceRestoreHelper(upscale_factor=1, use_parse=True, device=device)
+        face_helper = FaceRestoreHelper(
+            upscale_factor=1,
+            use_parse=True,
+            device=device,
+            model_rootpath=f'{models_dir}/any/face_restoration/weights',
+        )
         face_helper.clean_all()
         face_helper.read_image(bgraImage)
         face_helper.get_face_landmarks_5(resize=640, eye_dist_threshold=5)
